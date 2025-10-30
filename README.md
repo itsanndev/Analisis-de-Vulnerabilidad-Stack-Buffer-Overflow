@@ -44,16 +44,16 @@ _Documento metodológico que establece el framework profesional para investigaci
 
 #### **Secciones Principales:**
 1. **🧩 Framework de Análisis Estructurado**
-	1.1 Fases de Investigación
-	1.2 Mentalidad del Analista
-	1.3 Selección Estratégica de Herramientas
+	- 1.1 Fases de Investigación
+ 	- 1.2 Mentalidad del Analista
+    - 1.3 Selección Estratégica de Herramientas
 2. **📆 Aproximación a Vulnerabilidades 0day**
-	2.1 Técnicas para Binarios Desconocidos
-	2.2 Generalización Metodológica
-	2.3 Toolkit Avanzado
+	- 2.1 Técnicas para Binarios Desconocidos
+	- 2.2 Generalización Metodológica
+	- 2.3 Toolkit Avanzado
 3. **✒️ Conclusiones**
-	3.1 Patrones y Lecciones
-	3.2 Recomendaciones para Futuros Análisis
+	- 3.1 Patrones y Lecciones
+	- 3.2 Recomendaciones para Futuros Análisis
 
 ## 👨🏻‍💻 Como Utilizar Este Repositorio
 ---- 
