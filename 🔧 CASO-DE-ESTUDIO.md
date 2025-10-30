@@ -2,17 +2,17 @@
 _Documento práctico que guía la explotación completa de una vulnerabilidad real de Stack Buffer Overflow, desde la configuración del entorno hasta la ejecución controlada del exploit._
 
 #### **Índice:**
-1. **[[#📦 PREREQUISITOS]]** - Herramientas esenciales y dependencias
-2. [[#⚙️ SETUP DEL ENTORNO]] - Configuración completa de WinDBG y herramientas
-3. [[#🔎 ANÁLISIS DE LA VULNERABILIDAD]] - Guía explicativa y recreable
-    - [[#PASO 0 - Configuración del debugger]]
-    - [[#PASO 1 - Fuzzing]]
-    - [[#PASO 2 - Offset, localizando el EIP]]
-    - [[#PASO 3 - Bad Characters]]
-    - [[#PASO 4 -Encontrar un modulo vulnerable en el binario]]
-    - [[#PASO 5 - Generar una shellcode]]
-    - [[#PASO 6 - Explotación]]
-4. [[#📋 CONCLUSIONES TÉCNICAS]] - Validación y patrones identificados
+1. [📦 PREREQUISITOS](#prerequisitos) - Herramientas esenciales y dependencias  
+2. [⚙️ SETUP DEL ENTORNO](#setup-del-entorno) - Configuración completa de WinDBG y herramientas  
+3. [🔎 ANÁLISIS DE LA VULNERABILIDAD](#analisis-de-la-vulnerabilidad) - Guía explicativa y recreable  
+   - [PASO 0 - Configuración del debugger](#paso-0---configuracion-del-debugger)  
+   - [PASO 1 - Fuzzing](#paso-1---fuzzing)  
+   - [PASO 2 - Offset, localizando el EIP](#paso-2---offset-localizando-el-eip)  
+   - [PASO 3 - Bad Characters](#paso-3---bad-characters)  
+   - [PASO 4 - Encontrar un módulo vulnerable en el binario](#paso-4---encontrar-un-modulo-vulnerable-en-el-binario)  
+   - [PASO 5 - Generar una shellcode](#paso-5---generar-una-shellcode)  
+   - [PASO 6 - Explotación](#paso-6---explotacion)  
+4. [📋 CONCLUSIONES TÉCNICAS](#conclusiones-tecnicas) - Validación y patrones identificados
 
 ## 📦 PREREQUISITOS
 ----
