@@ -103,7 +103,8 @@ La selección de `R 3.4.4` como objetivo se basa en su historial conocido de vul
 
 **PASO A PASO**
 1. **Descarga e Instalación:**
-   Obtener el binario vulnerable R 3.4.4 desde este repositorio.
+   Obtener el binario vulnerable R 3.4.4 desde este repositorio. 
+   [R.3.4.4](RECURSOS/setup/R-3.4.4-win.zip)
    
 2. **Configuración Completa:**
    Durante la instalación, habilitar todos los componentes para asegurar la reproducibilidad del entorno vulnerable.
