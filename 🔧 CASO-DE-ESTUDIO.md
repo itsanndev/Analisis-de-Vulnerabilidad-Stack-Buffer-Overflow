@@ -36,6 +36,7 @@ La selección de WinDBG como debugger a utilizar se debe a su capacidad nativa p
 2. **Selección de características a descargar:**
    Durante la instalación, marcar exclusivamente "Debugging tools for Windows" para evitar componentes innecesarios.
    ![SDK-Installation](images/SDK-Installation.png)
+   
    ![SDK-Installation-Succeed](images/SDK-Installation-Succeed.png)
 
 3. **Configuración de Símbolos del Sistema:**
@@ -43,10 +44,12 @@ La selección de WinDBG como debugger a utilizar se debe a su capacidad nativa p
    NOMBRE: `_NT_SYMBOL_PATH` 
    VALOR: `srv*c:\symbols*http://msdl.microsoft.com/download/symbols`
    ![new-system-variable](images/new-system-variable.png)
+   
    ![new-system-variable-done](images/new-system-variable-done.png)
 
 5. **Verificación de Instalación:**
 	![WinDBG-InstalledCheck](images/WinDBG-InstalledCheck.png)
+	
    _WinDBG instalado correctamente y listo para cargar extensiones especializadas._
 
 #### **INTEGRACIÓN DE HERRAMIENTAS AVANZADAS**
@@ -58,6 +61,7 @@ La extensión de WinDBG con **windbglib** y **mona** proporciona capacidades aut
 
 2. **Extraer y desbloquear archivos:**
    Extraer localmente los archivos (`pykd.pyd` y `vcredist_x86.exe`) en una ubicación temporal y desbloquearlos (**unblock**) desde sus propiedades
+   
    ![unlock-file](images/unlock-file.png)
 
 3. **Ubicar archivo `pykd.pyd`:**
@@ -70,6 +74,7 @@ c:
 cd "C:\Program Files (x86)\Common Files\Microsoft Shared\VC"  
 regsvr32 msdia90.dll   
 ```
+
 ![msdia90-installed](images/msdia90-installed.png)
 
 5. **Descarga de `windlib.py`:**
@@ -100,10 +105,12 @@ La selección de `R 3.4.4` como objetivo se basa en su historial conocido de vul
    
 2. **Configuración Completa:**
    Durante la instalación, habilitar todos los componentes para asegurar la reproducibilidad del entorno vulnerable.
+   
    ![R-Options](images/R-Options.png)
 
 3. **Verificación del Entorno:**
    Confirmar que la aplicación ejecuta correctamente antes de iniciar el análisis de vulnerabilidades.  
+   
    ![Vulnerability-Working](images/Vulnerability-Working.png)
 
 
@@ -121,7 +128,9 @@ La configuración del debugger es fundamental para un análisis exitoso. WinDBG,
 **PASO A PASO**
 1. **Carga del Binario Vulnerable**: 
    Desde el debugger WinDBG x64, abrir el ejecutable `R 3.4.4`, correspondiente al binario vulnerable a evaluar.  
+   
    ![WinDBG-OpenFile](images/WinDBG-OpenFile.png)
+   
    ![WinDBG_OpenFileDetailed](images/WinDBG_OpenFileDetailed.png)
    _Este paso establece el entorno controlado donde observaremos el comportamiento de la aplicación bajo condiciones de explotación._
    
@@ -130,11 +139,14 @@ La configuración del debugger es fundamental para un análisis exitoso. WinDBG,
    Configuramos las pestañas críticas para nuestro análisis:
    - **Registers**: Para monitorizar EIP, ESP, EBP y otros registros vitales
    - **Command**: Para ejecutar comandos de Mona y análisis en tiempo real
+   
    ![WinDBG-GetViews](images/WinDBG-GetViews.png)
 
 3. **Ejecución Controlada del Programa:**
    Iniciamos la aplicación dentro del debugger manteniendo el control sobre su ejecución.
+   
    ![WinDBG-RunProgram](images/WinDBG-RunProgram.png)
+   
    _El programa ahora ejecuta bajo nuestro supervisión, listo para interceptar y analizar el crash cuando ocurra._
 
 ### **PASO 1 - Fuzzing:** <a id="paso-1---fuzzing"></a>
@@ -147,16 +159,23 @@ El fuzzing sistemático nos permite identificar puntos de entrada no sanitizados
 1. **Identificación del Campo Vulnerable:**
 	Ruta: _Edit_ → _GUI Preferences → Language for menus and messages_
 	El textfield presente podría tener sanitización insuficiente, siendo susceptible a una vulnerabilidad. Por ello, será puesto a prueba de sobreescritura al manejar gran cantidad de datos (Fuzzing)
-	![Vulnerability-EditSection](images/Vulnerability-EditSection.png)![Vulnerability-Textfield](images/Vulnerability-Textfield.png)
+	
+	![Vulnerability-EditSection](images/Vulnerability-EditSection.png)
+	
+	![Vulnerability-Textfield](images/Vulnerability-Textfield.png)
 	
 2. **Patrón de prueba:**
    `print("A"*1000)`
+   
    ![Fuzzing-SimpleStringPrint](images/Fuzzing-SimpleStringPrint.png)
+   
    ![Vulnerability-FuzzingSimpleCrash](images/Vulnerability-FuzzingSimpleCrash.png)
+   
    _Utilizamos el mismo carácter repetidamente para provocar un crash por sobreescritura de stack. El carácter 'A' (0x41 en hexadecimal) es ideal para esta prueba inicial ya que es fácilmente identificable en memoria._
    
 3. **Validación del Crash:**
-   El debugger confirma la vulnerabilidad de **buffer overflow** al mostrar registros críticos sobrescritos con nuestro patrón de "A"s (0x41 en hexadecimal). El EIP, que normalmente contiene la dirección de retorno legítima, ahora apunta a 0x41414141, demostrando que controlamos el flujo de ejecución.. 
+   El debugger confirma la vulnerabilidad de **buffer overflow** al mostrar registros críticos sobrescritos con nuestro patrón de "A"s (0x41 en hexadecimal). El EIP, que normalmente contiene la dirección de retorno legítima, ahora apunta a 0x41414141, demostrando que controlamos el flujo de ejecución...
+   
    ![WinDBG-SimpleStringStackOverflow](images/WinDBG-SimpleStringStackOverflow.png)
 
 
@@ -166,18 +185,24 @@ Controlar el EIP (Instruction Pointer) es crucial para redirigir el flujo de eje
 **PASO A PASO**
 1. **Generación de Patrón Único:**
    Ejecución del script `pattern_create.rb` (descargado desde este propio repositorio)
-   `ruby pattern_create.rb -l 1000` ![RubyScript-PatternCreate](images/RubyScript-PatternCreate.png)
+   `ruby pattern_create.rb -l 1000` 
+   
+   ![RubyScript-PatternCreate](images/RubyScript-PatternCreate.png)
+   
    _Este patrón único actúa como "huella dactilar" en memoria. Al sobreescribir el EIP con una secuencia específica de este patrón, podemos calcular exactamente cuántos bytes necesitamos para alcanzar la dirección de retorno._
    
 2. **Inyección y Análisis del Crasheo**
    EIP: `6a41376a`
    Este valor representa una posición específica en nuestro patrón
+   
    ![FindingOffset-TestingRubyPattern](images/FindingOffset-TestingRubyPattern.png)
 
 3. **Cálculo del Offset Exacto**
    Ejecución del script `pattern_offset.rb` (descargado desde este propio repositorio)
    `ruby pattern_offset.rb -l 10000 -q 6a41376a`
+   
    ![Offset-Found](images/Offset-Found.png)
+   
    _Debes tener en consideración que le parámetro `-q` debe corresponder al EIP del crasheo._
    
    Posterior a su ejecución, descubrimos que el **offset** se encuentra en la posición **292**.
