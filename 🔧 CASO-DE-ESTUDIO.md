@@ -14,7 +14,7 @@ _Documento práctico que guía la explotación completa de una vulnerabilidad re
    - [PASO 6 - Explotación](#paso-6---explotacion)  
 4. [📋 CONCLUSIONES TÉCNICAS](#conclusiones-tecnicas) - Validación y patrones identificados
 
-## 📦 PREREQUISITOS
+## 📦 PREREQUISITOS <a id="prerequisitos"></a>
 ----
 La configuración de un entorno de análisis de vulnerabilidades requiere herramientas especializadas que, aunque no forman parte del instructivo principal por su configuración predeterminada al momento de su instalación, son esenciales para la reproducibilidad del ejercicio.
 #### **HERRAMIENTAS ESENCIALES**
@@ -24,7 +24,7 @@ La configuración de un entorno de análisis de vulnerabilidades requiere herram
  - **Python 3.9.0:** _Para ejecución de scripts de generación de shellcode_
  - **Metasploit Framework:** _Necesario durante la generación de shellcode_
 
-## ⚙️ SETUP DEL ENTORNO
+## ⚙️ SETUP DEL ENTORNO <a id="setup-del-entorno"></a>
 ---- 
 #### **INSTALACIÓN DE WinDBG x64** 
 La selección de WinDBG como debugger a utilizar se debe a su capacidad nativa para análisis de memoria en sistemas Windows y su integración robusta con herramientas de explotación modernas. A diferencia de debuggers descontinuados como *Immunity Debugger*, se convierte en la opción más adecuada para análisis de vulnerabilidades en entornos Windows actuales.
@@ -101,12 +101,12 @@ La selección de `R 3.4.4` como objetivo se basa en su historial conocido de vul
    Confirmar que la aplicación ejecuta correctamente antes de iniciar el análisis de vulnerabilidades.  ![[Vulnerability-Working.png]]
 
 
-## 🔎 ANÁLISIS DE LA VULNERABILIDAD
+## 🔎 ANÁLISIS DE LA VULNERABILIDAD <a id="analisis-de-la-vulnerabilidad"></a>
 ----
 #### **CONTEXTO METODOLÓGICO** 
 Antes de iniciar el análisis técnico, es crucial entender que seguimos una metodología estructurada de **Análisis de Vulnerabilidades** que consiste en: Reconocimiento, Fuzzing, Desarrollo de Exploit y Validación. Cada fase tiene objetivos específicos y herramientas especializadas.
 
-#### **PASO 0 - Configuración del debugger:**
+### **PASO 0 - Configuración del debugger:** <a id="paso-0---configuracion-del-debugger"></a>
 La configuración del debugger es fundamental para un análisis exitoso. WinDBG, será la herramienta que nos proporcione visibilidad completa sobre el estado interno de la aplicación durante la explotación, permitiéndonos:
 - Monitorear registros de CPU
 - Analizar el estado de la memoria durante el crash
@@ -128,7 +128,7 @@ La configuración del debugger es fundamental para un análisis exitoso. WinDBG,
    Iniciamos la aplicación dentro del debugger manteniendo el control sobre su ejecución.![[WinDBG-RunProgram.png]]
    _El programa ahora ejecuta bajo nuestro supervisión, listo para interceptar y analizar el crash cuando ocurra._
 
-#### **PASO 1 - Fuzzing:**
+### **PASO 1 - Fuzzing:** <a id="paso-1---fuzzing"></a>
 El fuzzing sistemático nos permite identificar puntos de entrada no sanitizados que puedan lead a corrupción de memoria. Buscamos específicamente:
 - Inputs que no validan longitud de buffers
 - Parsers que no manejan caracteres especiales
@@ -149,7 +149,7 @@ El fuzzing sistemático nos permite identificar puntos de entrada no sanitizados
    ![[WinDBG-SimpleStringStackOverflow.png]]
 
 
-#### **PASO 2 - Offset, localizando el EIP:**
+### **PASO 2 - Offset, localizando el EIP:** <a id="paso-2---offset-localizando-el-eip"></a>
 Controlar el EIP (Instruction Pointer) es crucial para redirigir el flujo de ejecución. El offset nos indica la posición exacta donde podemos sobreescribir la dirección de retorno.
 
 **PASO A PASO**
@@ -169,7 +169,7 @@ Controlar el EIP (Instruction Pointer) es crucial para redirigir el flujo de eje
    
    Posterior a su ejecución, descubrimos que el **offset** se encuentra en la posición **292**.
 
-#### **PASO 3 - Bad Characters:**
+### **PASO 3 - Bad Characters:** <a id="paso-3---bad-characters"></a>
 Ciertos caracteres pueden truncar o corromper nuestro payload durante la copia en memoria. Identificarlos es esencial para generar shellcode efectivo.
 
 **PASO A PASO**
@@ -193,7 +193,7 @@ Ciertos caracteres pueden truncar o corromper nuestro payload durante la copia e
 5. **Confirmación Final:**![[FindingBadChars-ComparingBytearrays.png]]
    _Tras eliminar \x00, el análisis comparativo muestra "unmodified", confirmando que hemos identificado todos los bad characters que podrían truncar nuestro shellcode._
    
-#### **PASO 4 -Encontrar un modulo vulnerable en el binario**
+### **PASO 4 - Encontrar un módulo vulnerable en el binario** <a id="paso-4---encontrar-un-modulo-vulnerable-en-el-binario"></a>
 Necesitamos un módulo con direcciones estables y sin protecciones (ASLR, DEP) para alojar nuestro payload
 
 **PASO A PASO**
@@ -211,7 +211,7 @@ Necesitamos un módulo con direcciones estables y sin protecciones (ASLR, DEP) p
    
    _Resultado: `0x6e595ddb` (JMP ESP en R.dll - dirección en little-endian: `\xdb\x5d\x59\x6e`)_
 
-#### **PASO 5 - Generar una shellcode**
+### **PASO 5 - Generar una shellcode** <a id="paso-5---generar-una-shellcode"></a>
 La shellcode debe ser compatible con el entorno y evadir detección mientras ejecuta nuestra carga útil, en este caso, pretendemos la elaboración de la shellcode bajo un criterio simple, la ejecución de la calculadora nativa del sistema.
 
 **PASO A PASO**
@@ -227,14 +227,14 @@ La shellcode debe ser compatible con el entorno y evadir detección mientras eje
    desde una cmd. Si resulta exitoso, un archivo .txt de nombre python3_shellcode será generado bajo el mismo directorio.
 
 
-#### **PASO 6 - Explotación
+### **PASO 6 - Explotación** <a id="paso-6---explotacion"></a>
 Esta etapa demuestra en práctica que el fallo de seguridad tiene un riesgo de ser materializado, mostrando un control efectivo sobre el binario vulnerable que debe ser documentado, investigado y parcheado con posterioridad.
 
 **INSTRUCCIÓN**
 1. **Adjuntar contenido del payload en el input vulnerable:**![[Exploitation-Succeed.png]]
    Si se han seguido los pasos de manera correcta, el input proporcionado redirecciona las instrucciones del programa a la shellcode, el cual contiene un payload específico para abrir la calculadora del sistema. Esto comprueba que la explotación ha sido exitosa.
 
-## 📋 CONCLUSIONES TÉCNICAS
+## 📋 CONCLUSIONES TÉCNICAS <a id="conclusiones-tecnicas"></a>
 ----
 **VALIDACIÓN DEL EXPLOIT:**
 - Control de EIP conseguido
