@@ -16,8 +16,8 @@ analisis-vulnerabilidades/
 │   └── setup/
 │
 │
-└── 📋 MISC/                              # Recursos multimedia
-    └── imagenes/
+└── 📋 images/                              # Recursos multimedia
+    
 ```
 
 
