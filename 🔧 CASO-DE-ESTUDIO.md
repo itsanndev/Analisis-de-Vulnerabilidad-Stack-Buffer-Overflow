@@ -35,6 +35,7 @@ La selección de WinDBG como debugger a utilizar se debe a su capacidad nativa p
    
 2. **Selección de características a descargar:**
    Durante la instalación, marcar exclusivamente "Debugging tools for Windows" para evitar componentes innecesarios.
+   
    ![SDK-Installation](images/SDK-Installation.png)
    
    ![SDK-Installation-Succeed](images/SDK-Installation-Succeed.png)
@@ -48,6 +49,7 @@ La selección de WinDBG como debugger a utilizar se debe a su capacidad nativa p
    ![new-system-variable-done](images/new-system-variable-done.png)
 
 5. **Verificación de Instalación:**
+
 	![WinDBG-InstalledCheck](images/WinDBG-InstalledCheck.png)
 	
    _WinDBG instalado correctamente y listo para cargar extensiones especializadas._
@@ -132,6 +134,7 @@ La configuración del debugger es fundamental para un análisis exitoso. WinDBG,
    ![WinDBG-OpenFile](images/WinDBG-OpenFile.png)
    
    ![WinDBG_OpenFileDetailed](images/WinDBG_OpenFileDetailed.png)
+   
    _Este paso establece el entorno controlado donde observaremos el comportamiento de la aplicación bajo condiciones de explotación._
    
 
@@ -213,16 +216,19 @@ Ciertos caracteres pueden truncar o corromper nuestro payload durante la copia e
 **PASO A PASO**
 1. **Configuración del Entorno de Análisis
    `!py mona config -set workingfolder PATH`  
+   
    ![Mona-SettingWorkingfolder](images/Mona-SettingWorkingfolder.png)
    _Esto permite establecer una carpeta de trabajo (workspace) para la exportación de archivos .txt y .bin de posterior uso durante el análisis._
    
 2. **Generación de Bytearray de Referencia:**
    `!py mona bytearray`
+   
    ![GenerateBytearray](images/GenerateBytearray.png)
    _Generamos una secuencia completa de bytes (0x00-0xFF) que servirá como referencia para identificar caracteres problemáticos durante la copia en memoria.
 
 3. **Análisis Comparativo Post-Crash:**
    `!py mona compare -f PATH-CARPETA-TRABAJO-MONA\bytearray.bin -a VALOR-ESP`
+   
    ![ComparingBytearrays](images/ComparingBytearrays.png)
    *Comparamos el contenido actual de la memoria (apuntado por ESP) con nuestro bytearray de referencia. Los caracteres modificados o truncados indican "bad characters" que deben ser excluidos del shellcode final.*
 
@@ -232,6 +238,7 @@ Ciertos caracteres pueden truncar o corromper nuestro payload durante la copia e
    
    
 5. **Confirmación Final:**
+
 ![FindingBadChars-ComparingBytearrays](images/FindingBadChars-ComparingBytearrays.png)
    _Tras eliminar \x00, el análisis comparativo muestra "unmodified", confirmando que hemos identificado todos los bad characters que podrían truncar nuestro shellcode._
    
@@ -244,6 +251,7 @@ Necesitamos un módulo con direcciones estables y sin protecciones (ASLR, DEP) p
    
 2. **Evaluar módulos disponibles según el criterio de selección:**
    Considerando que nuestro objetivo es encontrar un módulo sin las médidas preventivas adecuadas, el módulo objetivo debe contar con cada valor de la tabla en negativo o **falso**. (Rebase: _False_, SafeSEH: _False_, ASLR: _False_, CFG: _False_, OS Dll: _False_)
+   
    ![VulnerableModule](images/VulnerableModule.png)
    
 3. **Selección del módulo:**
@@ -251,6 +259,7 @@ Necesitamos un módulo con direcciones estables y sin protecciones (ASLR, DEP) p
    
 4. **Búsqueda de Instrucción JMP ESP:**
    `!py mona find -s "\xff\xe4" -m R.dll` 
+   
    ![VulnerableModule2](images/VulnerableModule2.png) 
    Buscamos específicamente la instrucción **JMP ESP** (código máquina `\xFF\xE4`) dentro del módulo R.dll. Esta instrucción funciona como nuestro **punto de redirección crítico**: cuando el flujo de ejecución sobreescriba el EIP con esta dirección, el procesador ejecutará un salto al registro ESP, que apunta directamente al inicio de nuestro buffer en el stack. Aquí es donde hemos posicionado cuidadosamente nuestro shellcode, creando así una transición perfecta desde el desbordamiento controlado hacia la ejecución de nuestro payload.
    
@@ -262,11 +271,13 @@ La shellcode debe ser compatible con el entorno y evadir detección mientras eje
 **PASO A PASO**
 1. **Generación con MSFVenom:**
    `msfvenom -a x86 — platform Windows -p windows/exec cmd=calc.exe -e x86/alpha_upper  -f c`
+   
    ![Msfvenom-GeneratingShellcode](images/Msfvenom-GeneratingShellcode.png)
    _Utilizamos el encoder `alpha_upper` para generar shellcode que contenga solo caracteres alfanuméricos en mayúsculas, evitando así problemas con caracteres especiales que podrían truncar nuestro payload._
 
 2.  **Adjuntar Shellcode al Script Destinado para la Explotación:**
    Es necesario reemplazar el contenido de la shellcode generado, en el script `shellcode.py`, descargado desde este propio repositorio
+   
    ![PythonScript-GeneratingShellcode](images/PythonScript-GeneratingShellcode.png)
 
 3. **Ejecutar el script  `shellcode.py`:** 
@@ -278,6 +289,7 @@ Esta etapa demuestra en práctica que el fallo de seguridad tiene un riesgo de s
 
 **INSTRUCCIÓN**
 1. **Adjuntar contenido del payload en el input vulnerable:** 
+
 ![Exploitation-Succeed](images/Exploitation-Succeed.png)
 Si se han seguido los pasos de manera correcta, el input proporcionado redirecciona las instrucciones del programa a la shellcode, el cual contiene un payload específico para abrir la calculadora del sistema. Esto comprueba que la explotación ha sido exitosa.
 
