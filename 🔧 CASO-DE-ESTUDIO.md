@@ -277,6 +277,7 @@ La shellcode debe ser compatible con el entorno y evadir detección mientras eje
    `msfvenom -a x86 — platform Windows -p windows/exec cmd=calc.exe -e x86/alpha_upper  -f c`
    
    ![Msfvenom-GeneratingShellcode](images/Msfvenom-GeneratingShellcode.png)
+   
    _Utilizamos el encoder `alpha_upper` para generar shellcode que contenga solo caracteres alfanuméricos en mayúsculas, evitando así problemas con caracteres especiales que podrían truncar nuestro payload._
 
 2.  **Adjuntar Shellcode al Script Destinado para la Explotación:**
