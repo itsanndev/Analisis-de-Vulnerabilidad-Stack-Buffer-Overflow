@@ -2,24 +2,25 @@
 _Framework metodológico profesional para investigación sistemática de vulnerabilidades, incluyendo técnicas para 0days, herramientas especializadas y aproximación estratégica aplicable a múltiples escenarios._
 
 #### **Índice:**
-1. **[[#🧩 1. FRAMEWORK DE ANÁLISIS ESTRUCTURADO]]**
-	1.1 Fases de la investigación estructurada
-	1.2 Mentalidad del Analista
-	1.3 Selección Estratégica de Herramientas
-2. [[#📆 2. APROXIMACIÓN A VULNERABILIDADES 0DAY]]
-	2.1 Técnicas para Binarios Desconocidos
-	2.2 Generalización Metodológica
-	2.3 Toolkit Avanzado
-3. [[#✒️ 3. CONCLUSIONES]]
-	3.1 Patrones y Lecciones
-	3.2 Recomendaciones para Futuros Análisis
+1. [🧩 1. FRAMEWORK DE ANÁLISIS ESTRUCTURADO](#framework-de-análisis-estructurado)
+   - [1.1 Fases de la Investigación Estructurada](#11-fases-de-la-investigación-estructurada)
+   - [1.2 Mentalidad del Analista Profesional](#12-mentalidad-del-analista-profesional)
+   - [1.3 Selección Estratégica de Herramientas](#13-selección-estratégica-de-herramientas)
+2. [📆 2. APROXIMACIÓN A VULNERABILIDADES 0DAY](#aproximación-a-vulnerabilidades-0day)
+   - [2.1 Técnicas para Investigación de Binarios Desconocidos](#21-técnicas-para-investigación-de-binarios-desconocidos)
+   - [2.2 Generalización de la Metodológica](#22-generalización-de-la-metodológica)
+   - [2.3 Herramientas para Análisis Proactivo](#23-herramientas-para-análisis-proactivo)
+3. [✒️ 3. CONCLUSIONES](#️-3-conclusiones)
+   - [3.1 Patrones Identificados y Lecciones Aprendidas](#31-patrones-identificados-y-lecciones-aprendidas)
+   - [3.2 Recomendaciones para Futuros Análisis](#32-recomendaciones-para-futuros-análisis)
 
 
-## 🧩 1. FRAMEWORK DE ANÁLISIS ESTRUCTURADO
+## 🧩 FRAMEWORK DE ANÁLISIS ESTRUCTURADO <a id="framework-de-análisis-estructurado"></a>
 ---- 
 #### **ENFOQUE METODOLÓGICO INTEGRAL**
 El análisis profesional de vulnerabilidades requiere un framework sistemático que trasciende la ejecución técnica individual. La metodología debe ser sustentada en tres pilares fundamentales: proceso estructurado, mentalidad analítica y selección estratégica de herramientas, asegurando reproducibilidad y escalabilidad en entornos reales.
-#### **1.1 Fases de la Investigación Estructurada*
+
+### 1.1 Fases de la Investigación Estructurada <a id="11-fases-de-la-investigación-estructurada"></a>
 El ciclo de análisis de vulnerabilidades sigue una progresión lógica que maximiza la eficiencia y minimiza omisiones críticas
 
 **PASO A PASO**
@@ -56,7 +57,7 @@ rabin2 -I target_binary  # En radare2
 ```
 _La explotación controlada valida los hallazgos y establece el impacto real de las vulnerabilidades identificadas. Recurso: [Exploit-DB](https://www.exploit-db.com/) para referencias de exploits existentes._
 
-#### **1.2 MENTALIDAD DEL ANALISTA PROFESIONAL**
+### 1.2 Mentalidad del Analista Profesional <a id="12-mentalidad-del-analista-profesional"></a>
 La efectividad en el análisis de vulnerabilidades trasciende el dominio técnico, requiriendo una aproximación mental específica.
 
 **PRINCIPIOS FUNDAMENTALES**
@@ -82,7 +83,8 @@ La efectividad en el análisis de vulnerabilidades trasciende el dominio técnic
    - **Offensive Security**: [https://www.offensive-security.com/](https://www.offensive-security.com/)
    - **PayloadsAllTheThings**: [https://github.com/swisskyrepo/PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)  
     _El landscape de seguridad evoluciona constantemente, requiriendo actualización continua de conocimientos._
-#### **1.3 SELECCIÓN ESTRATÉGIDA DE HERRAMIENTAS**
+	
+### 1.3 Selección Estratégica de Herramientas <a id="13-selección-estratégica-de-herramientas"></a>
 La efectividad del análisis depende críticamente de la selección apropiada de herramientas especializadas
 
 
@@ -97,12 +99,12 @@ La efectividad del análisis depende críticamente de la selección apropiada de
 | Exploitation   | Mona, Pwntools             | ROPgadget, Ropper          | Desarrollo de Exploits |
 
 
-## 📆 2. APROXIMACIÓN A VULNERABILIDADES 0DAY
+## 📆 APROXIMACIÓN A VULNERABILIDADES 0DAY <a id="aproximación-a-vulnerabilidades-0day"></a>
 ---- 
 #### **INVESTIGACIÓN PROACTIVA DE BINARIOS DESCONOCIDOS**
 La investigación de vulnerabilidades no documentadas requiere una aproximación metodológica rigurosa que combine técnicas automatizadas con análisis manual especializado.
 
-#### **2.1 TÉCNICAS PARA INVESTIGACIÓN DE BINARIOS DESCONOCIDOS**
+### 2.1 Técnicas para Investigación de Binarios Desconocidos <a id="21-técnicas-para-investigación-de-binarios-desconocidos"></a>
 El análisis de software sin documentación previa demanda un approach sistemático y estratificado.
 
 **PASO A PASO CON HERRAMIENTAS ESPECÍFICAS**
@@ -148,7 +150,7 @@ def find_vulnerable_functions():
 - Operaciones aritmeticas sin overflow checks
   _Recurso: [Vulnerability Signatures](https://github.com/googleprojectzero/0days-in-the-wild)_
 
-#### **2.2 GENERALIZACIÓN DE LA METODOLÓGICA**
+### 2.2 Generalización de la Metodológica <a id="22-generalización-de-la-metodológica"></a>
 Los principios metodológicos demostrados en el caso R 3.4.4 son aplicables a escenarios diversos mediante adaptación contextual.
 
 **MATRIZ DE ADAPTACIÓN METODOLÓGICA:**
@@ -160,7 +162,7 @@ Los principios metodológicos demostrados en el caso R 3.4.4 son aplicables a es
 | Browser Exploitation | JIT spraying, type confusion                 | WinDBG, rr, Fuzzilli          | Sandbox escape, JIT hardening |
 | Kernel-mode          | Ring0 primitives, pool overflow              | WinDBG+kd, GDB+kgdb           | SMEP, SMAP, KASLR             |
 
-#### **2.3 HERRAMIENTAS PARA ANÁLISIS PROACTIVO**
+### 2.3 Herramientas para Análisis Proactivo <a id="23-herramientas-para-análisis-proactivo"></a>
 La investigación de 0days requiere un toolkit especializado para diferentes fases del proceso.
 
 **TOOLKIT AVANZADO POR CATEGORÍA**
@@ -196,12 +198,12 @@ AFL_DEFER_FORKSRV=1 AFL_INST_LIBS=1 afl-fuzz -i input/ -o output/ \
 ```
 _Recursos: [AFL++ Documentation](https://aflplus.plus/docs/), [libFuzzer Tutorial](https://github.com/google/fuzzing/blob/master/tutorial/libFuzzerTutorial.md)_
 
-## ✒️ 3. CONCLUSIONES
+## ✒️ CONCLUSIONES <a id="conclusiones"></a>
 ---- 
 #### **PATRONES METODOLÓGICOS VALIDADOS**
 La aplicación consistente de este framework metodológico ha demostrado efectividad en escenarios reales, estableciendo patrones reproducibles para el análisis de vulnerabilidades.
 
-#### **3.1 PATRONES IDENTIFICADOS Y LECCIONES APRENDIDAS**
+### 3.1 Patrones Identificados y Lecciones Aprendidas <a id="31-patrones-identificados-y-lecciones-aprendidas"></a>
 El análisis sistemático revela patrones transversales aplicables a múltiples contextos.
 
 **HERRAMIENTAS DE DOCUMENTACIÓN Y REPORTING**
@@ -219,8 +221,7 @@ El análisis sistemático revela patrones transversales aplicables a múltiples 
 	- **Reliability Metrics**: [Microsoft Exploitability Index](https://www.microsoft.com/en-us/msrc/exploitability-index)
 	- **Community Feedback**: [0day.today Ratings](https://0day.today/)
 
-#### **3.2 RECOMENDACIONES PARA FUTUROS ANÁLISIS**
-
+### 3.2 Recomendaciones para Futuros Análisis <a id="32-recomendaciones-para-futuros-análisis"></a>
 **CHECKLIST DE HARDENING METODOLÓGICO**
 - **Validación Cruzada**: Múltiples herramientas para mismo análisis
 - **Peer Review**: Revisión por otro analista antes de conclusión
