@@ -188,7 +188,7 @@ Controlar el EIP (Instruction Pointer) es crucial para redirigir el flujo de eje
 **PASO A PASO**
 1. **Generación de Patrón Único:**
    Ejecución del script `pattern_create.rb` 
-   [pattern_create.rb](scripts/pattern_create.rb)
+   [pattern_create.rb](RECURSOS/scripts/pattern_create.rb)
    
    `ruby pattern_create.rb -l 1000` 
    
@@ -204,7 +204,7 @@ Controlar el EIP (Instruction Pointer) es crucial para redirigir el flujo de eje
 
 3. **Cálculo del Offset Exacto**
    Ejecución del script `pattern_offset.rb`
-   [pattern_offset.rb](scripts/pattern_offset.rb)
+   [pattern_offset.rb](RECURSOS/scripts/pattern_offset.rb)
    
    `ruby pattern_offset.rb -l 10000 -q 6a41376a`
    
@@ -285,7 +285,7 @@ La shellcode debe ser compatible con el entorno y evadir detección mientras eje
    ![PythonScript-GeneratingShellcode](images/PythonScript-GeneratingShellcode.png)
 
 3. **Ejecutar el script  `shellcode.py`:** 
-[shellcode.py](scripts/shellcode.py)
+[shellcode.py](RECURSOS/scripts/shellcode.py)
 
 Si resulta exitoso, un archivo .txt de nombre python3_shellcode será generado bajo el mismo directorio.
 
