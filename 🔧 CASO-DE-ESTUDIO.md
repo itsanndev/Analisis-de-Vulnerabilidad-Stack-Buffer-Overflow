@@ -187,7 +187,9 @@ Controlar el EIP (Instruction Pointer) es crucial para redirigir el flujo de eje
 
 **PASO A PASO**
 1. **Generación de Patrón Único:**
-   Ejecución del script `pattern_create.rb` (descargado desde este propio repositorio)
+   Ejecución del script `pattern_create.rb` 
+   [pattern_create.rb](scripts/pattern_create.rb)
+   
    `ruby pattern_create.rb -l 1000` 
    
    ![RubyScript-PatternCreate](images/RubyScript-PatternCreate.png)
@@ -201,7 +203,9 @@ Controlar el EIP (Instruction Pointer) es crucial para redirigir el flujo de eje
    ![FindingOffset-TestingRubyPattern](images/FindingOffset-TestingRubyPattern.png)
 
 3. **Cálculo del Offset Exacto**
-   Ejecución del script `pattern_offset.rb` (descargado desde este propio repositorio)
+   Ejecución del script `pattern_offset.rb`
+   [pattern_offset.rb](scripts/pattern_offset.rb)
+   
    `ruby pattern_offset.rb -l 10000 -q 6a41376a`
    
    ![Offset-Found](images/Offset-Found.png)
@@ -281,7 +285,9 @@ La shellcode debe ser compatible con el entorno y evadir detección mientras eje
    ![PythonScript-GeneratingShellcode](images/PythonScript-GeneratingShellcode.png)
 
 3. **Ejecutar el script  `shellcode.py`:** 
-   desde una cmd. Si resulta exitoso, un archivo .txt de nombre python3_shellcode será generado bajo el mismo directorio.
+[shellcode.py](scripts/shellcode.py)
+
+Si resulta exitoso, un archivo .txt de nombre python3_shellcode será generado bajo el mismo directorio.
 
 
 ### **PASO 6 - Explotación** <a id="paso-6---explotacion"></a>
