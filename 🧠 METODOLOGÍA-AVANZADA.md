@@ -64,10 +64,12 @@ La efectividad en el análisis de vulnerabilidades trasciende el dominio técnic
 1. **PENSAMIENTO ADVERSARIAL SISTEMÁTICO:**
    Técnica: **"Attack Trees" - Bruce Schneier (1999)**
    [Schneier on Security - Attack Trees](https://www.schneier.com/academic/archives/1999/12/attack_trees.html)
-   ![[Teorico-AttackTree.png]]
+   
+   ![Teorico-AttackTree](/images/Teorico-AttackTree.png)
+   
    _La capacidad de pensar como un adversario permite identificar vulnerabilidades que escapan a los tests automatizados. Recurso: [MITRE ATT&CK](https://attack.mitre.org/) para framework de tácticas adversarias._
    
-2. **RIGOR METODOLÓGICO Y ESCEPTICISMO SALUDABLE:**
+3. **RIGOR METODOLÓGICO Y ESCEPTICISMO SALUDABLE:**
    **Checklist de validación:**
    - ¿El crash es reproducible?
    - ¿Se controla EIP/RIP?
@@ -76,7 +78,7 @@ La efectividad en el análisis de vulnerabilidades trasciende el dominio técnic
    - ¿El exploit funciona múltiples veces?  
    _El escepticismo metodológico previene falsos positivos y asegura la calidad del análisis._ _Plantilla: [Vulnerability Assessment Checklist](https://github.com/OWASP/ASVS)_
    
-3. **APRENDIZAJE AUTODIDACTA Y NOVEDADES TÉCNICAS:**
+4. **APRENDIZAJE AUTODIDACTA Y NOVEDADES TÉCNICAS:**
    **Recursos recomendados:**
    - - **Exploit Database**: [https://www.exploit-db.com/](https://www.exploit-db.com/)
    - **Google Project Zero**: [https://googleprojectzero.blogspot.com/](https://googleprojectzero.blogspot.com/)
